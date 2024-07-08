@@ -10,4 +10,5 @@ Set Cloudinary account settings using one of the following:
   dotnet user-secrets set "CloudinarySettings:CloudName" "your_value_here"
   dotnet user-secrets set "CloudinarySettings:ApiKey" "your_value_here"
   dotnet user-secrets set "CloudinarySettings:ApiSecret" "your_value_here"
+  dotnet user-secrets set "CloudinarySettings:UploadPreset" "your_value_here"
   ```

@@ -1,4 +1,6 @@
+using System.Net;
 using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using CloudinarySignedUploadWidgetDotnet.Models;
 
 namespace CloudinarySignedUploadWidgetDotnet.Services;
@@ -20,7 +22,7 @@ public class CloudinaryService : ICloudinaryService
         IDictionary<string, object> parameters = new SortedDictionary<string, object>()
         {
             {"timestamp", DateTimeOffset.UtcNow.ToUnixTimeSeconds()},
-            {"source", "uw"},
+            {"source", "uw"}, // uw = upload widget
             {"upload_preset", _cloudinarySettings.UploadPreset}
         };
 
@@ -34,5 +36,12 @@ public class CloudinaryService : ICloudinaryService
             ApiKey = _cloudinarySettings.ApiKey,
             UploadPreset = _cloudinarySettings.UploadPreset
         };
+    }
+
+    public async Task<bool> TryDeleteImageAsync(string publicId)
+    {
+        var result = await _cloudinary.DeleteResourcesAsync(ResourceType.Image, [publicId]);
+        System.Console.WriteLine(result.Deleted);
+        return result.StatusCode == HttpStatusCode.OK;
     }
 }
